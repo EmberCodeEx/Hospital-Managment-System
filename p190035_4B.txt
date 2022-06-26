@@ -1,0 +1,130 @@
+MariaDB [person]> create index my_Index on users(email);
+Query OK, 0 rows affected (0.027 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+
+
+MariaDB [person]> create index my_2nd_index on users(username,password);
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [person]> show index from users
+    -> \G
+*************************** 1. row ***************************
+        Table: users
+   Non_unique: 0
+     Key_name: PRIMARY
+ Seq_in_index: 1
+  Column_name: user_id
+    Collation: A
+  Cardinality: 4
+     Sub_part: NULL
+       Packed: NULL
+         Null:
+   Index_type: BTREE
+      Comment:
+Index_comment:
+*************************** 2. row ***************************
+        Table: users
+   Non_unique: 1
+     Key_name: my_Index
+ Seq_in_index: 1
+  Column_name: email
+    Collation: A
+  Cardinality: 4
+     Sub_part: NULL
+       Packed: NULL
+         Null: YES
+   Index_type: BTREE
+      Comment:
+Index_comment:
+*************************** 3. row ***************************
+        Table: users
+   Non_unique: 1
+     Key_name: my_2nd_index
+ Seq_in_index: 1
+  Column_name: username
+    Collation: A
+  Cardinality: 4
+     Sub_part: NULL
+       Packed: NULL
+         Null: YES
+   Index_type: BTREE
+      Comment:
+Index_comment:
+*************************** 4. row ***************************
+        Table: users
+   Non_unique: 1
+     Key_name: my_2nd_index
+ Seq_in_index: 2
+  Column_name: password
+    Collation: A
+  Cardinality: 4
+     Sub_part: NULL
+       Packed: NULL
+         Null: YES
+   Index_type: BTREE
+      Comment:
+Index_comment:
+4 rows in set (0.043 sec)
+
+----Drop Indexes -----------------------------------------
+Q1-Part 4
+MariaDB [person]> drop index my_Index on users;
+Query OK, 0 rows affected (0.015 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [person]> drop index my_2nd_index on users;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+----------------------------------------------------------------------
+Q1_Part#5_Explain 
+                    Implicit Index :
+                                         This Indexing is created for Primary and unique Key. And this Type of Index create 
+itself when ever the entity is created.
+                       
+                      Unique Index: 
+                                            Unique Index is just like Primary Key , it is not duplicated in the tables.      
+                                                   
+
+-----------------------------------------------------------------------------------
+
+Question#2
+ part1:
+           Indexing are the Major part of Query optimization which mean fasten your search, which is the 
+most important thing to save time. If a system has indexes it will be faster in showing data then a 
+table or Data which doesn't have index . Too many indexing can also slow down the other process like inserting and deleting 
+If there are frequent insert, delete and update operations carried out on documents, then the indexes would need to change that often,
+which would just be an overhead for the collection.
+Example:
+          db.customers.createIndex({customersID: 1}) 
+
+                This will create index based on CustomersId where
+the 1 indicates  that when the index is created with the :Customersid" Field values, 
+they should be sorted in ascending order
+
+-----------------------------------------------------------------------------------
+
+Part# 2
+
+         there is no such difference both drop the index if we give command the only difference is
+the way we right query .
+
+MongoDB : db.customersID.dropIndex() -it will drop single index at a time 
+Mysql    : drop index Customers_ID_index on Table; - it will also drop single index at a time
+
+
+To Drop all : in Mongo we type db.collection.dropIndexes() 
+
+-----------------------------------------------------------------------------------
+Part # 3 
+
+  This is Showing Indexes for the Collection("studentGrades")
+               -:    V version
+               -:    _ID: 1  and name: 1 shows the index are Ascending order 
+               -: "Name" in that is showing the Name entatity 
+
+
+-------------------------    END  ----------------------------------------------------------
